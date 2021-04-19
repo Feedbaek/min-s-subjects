@@ -6,13 +6,13 @@ DICHEADER = include
 
 TARGET = atm
 SRCS = $(wildcard $(DICSRCS)/*.c)
-OBJS = $(SRC:.c=.o)
+OBJS = $(SRCS:.c=.o)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -I $(DICHEADER)
+	$(CC) $(CFLAGS) -o $@ -c $< -I $(DICHEADER)
 
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) $^ -o $@
 
 all: $(TARGET)
 
