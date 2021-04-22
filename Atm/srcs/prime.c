@@ -17,42 +17,48 @@ int      is_prime(int e)
 void   delete_prime(machine* atm,int time, int *total_nbr, int *average_nbr) 
 {
      	machine* parsing;
-     	person* person_c;
-     	person* person_n;
+     	person* man;
+     	person* next_man;
      	parsing = atm;
      	for (int i = 0; i < 3; i++)
      	{
-	  	person_c = parsing->next_p;
-	  	if (person_c == NULL)
+	  	man = parsing->next_p;
+	  	if (man == NULL)
 		{
 			parsing = parsing->next_a;
 	       		continue;
 		}
 	  	if (time % 10 == 0)
 	  	{
-	       		if (is_prime(person_c->entrance) == 1)
+	       		while (man != NULL && is_prime(man->entrance) == 1)
 	       		{
-		    		parsing->next_p = person_c->next_p;
-		    		printf("%d번 고객이 탈주했습니다.\n", person_c->entrance);
-				*average_nbr += time - person_c->entrance;
-				free(person_c);
-				*total_nbr = *total_nbr + 1;
+		    		parsing->next_p = man->next_p;
+				*average_nbr += time - man->entrance;
+				(*total_nbr)++;
+				atm->cnt_waiting--;
+				free(man);
+				man = parsing->next_p;
 	       		}
-	       		person_n = person_c->next_p;
-	       		while (person_n != NULL)
+			if (man == NULL)
+			{
+				parsing = parsing->next_a;
+				continue;
+			}
+			next_man = man->next_p;
+	       		while (next_man != NULL)
 	       		{
-		    		if (is_prime(person_n->entrance) == 1)
+		    		if (is_prime(next_man->entrance) == 1)
 		    		{
-					person_c->next_p = person_n->next_p;
-			 		printf("%d번 고객이 탈주했습니다.\n",person_n->entrance);
-					*average_nbr += time - person_c->entrance;
-					free(person_n);
-					*total_nbr = *total_nbr + 1;
-			 		person_n = person_c->next_p;
+					man->next_p = next_man->next_p;
+					*average_nbr += time - next_man->entrance;
+					(*total_nbr)++;
+					atm->cnt_waiting--;
+					free(next_man);
+			 		next_man = man->next_p;
 			 		continue;
 		    		}
-		    		person_c = person_c->next_p;
-		    		person_n = person_c->next_p;
+		    		man = next_man;
+		    		next_man = man->next_p;
 	       		}
 	  	}
 	  	parsing = parsing->next_a;
