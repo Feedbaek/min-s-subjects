@@ -26,7 +26,7 @@ void    init_machine_data(machine *atm, int i);
 void    init_machine(machine *atm_1, machine *atm_2, machine *atm_3);
 void    init_person(person *man, int t);
 
-void    insert_person(machine *atm, person *man);
+void    insert_person(machine *atm, int time);
 machine         *choose_atm(machine *atm);
 void    working_atm(machine *atm);
 void    print_working(machine *atm, int time);

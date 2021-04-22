@@ -1,10 +1,13 @@
 #include "atm.h"
 
-void    insert_person(machine *atm, person *man)
+void    insert_person(machine *atm, int time)
 {
+	person *man = (person *)malloc(sizeof(person));
+	init_person(man, time);
 	person *parsing;
 	if (man->vip || atm->next_p == NULL)
 	{
+		if (man->vip)
 		man->next_p = atm->next_p;
 		atm->next_p = man;
 	} 
@@ -81,12 +84,13 @@ void	print_working(machine *atm, int t)
 		{
 			if (man)
 			{
-				if (man->entrance < 60)
+				if (t < 60)
 					printf("9시 %d분 -%d번 고객(%d분 소요)이 %d번 ATM기에서 서비스를 시작함\n", t, man->entrance, man->time, parsing->index);
 				else
 					printf("10시 %d분 -%d번 고객(%d분 소요)이 %d번 ATM기에서 서비스를 시작함\n", t - 60, man->entrance, man->time, parsing->index);
 				parsing->working = man->time;
 				parsing->next_p = man->next_p;
+				free(man);
 			}
 		}
 		parsing = parsing->next_a;
