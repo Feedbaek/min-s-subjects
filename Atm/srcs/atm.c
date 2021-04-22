@@ -14,8 +14,8 @@ void    insert_person(machine *atm, person *man)
 		while (parsing->next_p)
 			parsing = parsing->next_p;
 		parsing->next_p = man;
-		atm->cnt_waiting++;
-       	}
+	}
+	atm->cnt_waiting++;
 }
 
 machine         *choose_atm(machine *atm)
@@ -48,7 +48,6 @@ machine         *choose_atm(machine *atm)
 	}
 	if (overlap > 0)
 	{
-		srand(time(NULL));
 		if (overlap == 1)
 			return (atm_min[rand()%2]);
 		return (atm_min[rand()%3]);

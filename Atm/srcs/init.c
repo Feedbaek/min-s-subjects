@@ -21,9 +21,7 @@ void	init_machine(machine *atm_1, machine *atm_2, machine *atm_3)
 void    init_person(person *man, int t)
 {
 	man->entrance = t;
-	srand(time(NULL));
 	man->time = rand() % 9 + 2;
-	srand(time(NULL));
 	man->vip = 0;
 	if (rand() % 10 == 1)
 		man->vip = 1;
