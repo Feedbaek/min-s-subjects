@@ -8,6 +8,7 @@ void    insert_person(machine *atm, int time)
 	if (man->vip || atm->next_p == NULL)
 	{
 		if (man->vip)
+			printf("vip %d %d\n", man->entrance, atm->index);
 		man->next_p = atm->next_p;
 		atm->next_p = man;
 	} 
@@ -71,7 +72,7 @@ void	working_atm(machine *atm)
 	}
 }
 
-void	print_working(machine *atm, int t)
+void	print_working(machine *atm, int t, int *complete_nbr, int *average_nbr)
 {
 	machine *parsing;
 	person	*man;
@@ -88,6 +89,8 @@ void	print_working(machine *atm, int t)
 					printf("9시 %d분 -%d번 고객(%d분 소요)이 %d번 ATM기에서 서비스를 시작함\n", t, man->entrance, man->time, parsing->index);
 				else
 					printf("10시 %d분 -%d번 고객(%d분 소요)이 %d번 ATM기에서 서비스를 시작함\n", t - 60, man->entrance, man->time, parsing->index);
+				*complete_nbr = *complete_nbr + 1;
+				*average_nbr += t - man->entrance;
 				parsing->working = man->time;
 				parsing->next_p = man->next_p;
 				free(man);

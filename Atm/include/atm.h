@@ -29,6 +29,7 @@ void    init_person(person *man, int t);
 void    insert_person(machine *atm, int time);
 machine         *choose_atm(machine *atm);
 void    working_atm(machine *atm);
-void    print_working(machine *atm, int time);
-
+void    print_working(machine *atm, int t, int *complete_nbr, int *average_nbr);
+int      is_prime(int e);
+void   delete_prime(machine* atm,int time, int *total_nbr, int *average_nbr);
 #endif
