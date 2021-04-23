@@ -2,7 +2,7 @@
 
 void    insert_person(machine *atm, int time)
 {
-	printf("atm%d 선택\n",atm->index);
+	atm->cnt_waiting++;
 	person *man = (person *)malloc(sizeof(person));
 	init_person(man, time);
 	person *parsing;
@@ -18,6 +18,7 @@ void    insert_person(machine *atm, int time)
 			parsing = parsing->next_p;
 		parsing->next_p = man;
 	}
+	printf("선택된 atm_%d\n", atm->index);
 }
 
 machine         *choose_atm(machine *atm)
@@ -33,14 +34,20 @@ machine         *choose_atm(machine *atm)
 	for (int i = 0; i < 3; i++)
 	{
 		printf("%d ",parsing->cnt_waiting);
-		if (parsing->cnt_waiting < min)
+		if (parsing->cnt_waiting < min || 
+				(parsing->working == 0 && atm_min[overlap]->working != 0))
 		{
 			overlap = 0;
 			min = parsing->cnt_waiting;
 			atm_min[overlap] = parsing;
 		}
-		else    if (parsing->cnt_waiting == min)
+		else if(parsing->cnt_waiting == min)
 		{
+			if (parsing->working != 0 && atm_min[overlap]->working == 0)
+			{
+				parsing = parsing->next_a;
+				continue ;
+			}
 			overlap++;
 			atm_min[overlap] = parsing;
 		}
@@ -51,17 +58,14 @@ machine         *choose_atm(machine *atm)
 		if (overlap == 1)
 		{
 			parsing = atm_min[rand()%2];
-			parsing->cnt_waiting++;
 			printf("overlap: %d\n",overlap);
 			return (parsing);
 		}
 		parsing = atm_min[rand()%3];
-		parsing->cnt_waiting++;
 		printf("overlap: %d\n",overlap);
 		return (parsing);
 	}
 	parsing = atm_min[overlap];
-	parsing->cnt_waiting++;
 	printf("overlap: %d\n",overlap);
 	return (parsing);
 }
@@ -98,7 +102,7 @@ void	print_working(machine *atm, int t, int *complete_nbr, int *average_nbr)
 					printf("10시 %d분 - %d번 고객(%d분 소요)이 %d번 ATM기에서 서비스를 시작함\n", t - 60, man->entrance, man->time, parsing->index);
 				(*complete_nbr)++;
 				*average_nbr += t - man->entrance;
-				atm->cnt_waiting--;
+				parsing->cnt_waiting--;
 				parsing->working = man->time;
 				parsing->next_p = man->next_p;
 				free(man);
