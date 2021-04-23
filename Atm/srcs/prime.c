@@ -30,12 +30,12 @@ void   delete_prime(machine* atm,int time, int *total_nbr, int *average_nbr)
 		}
 	  	if (time % 10 == 0)
 	  	{
-	       		while (man != NULL && is_prime(man->entrance) == 1)
+	       		while (man != NULL && is_prime(man->entrance))
 	       		{
 		    		parsing->next_p = man->next_p;
 				*average_nbr += time - man->entrance;
 				(*total_nbr)++;
-				atm->cnt_waiting--;
+				parsing->cnt_waiting--;
 				free(man);
 				man = parsing->next_p;
 	       		}
@@ -47,12 +47,12 @@ void   delete_prime(machine* atm,int time, int *total_nbr, int *average_nbr)
 			next_man = man->next_p;
 	       		while (next_man != NULL)
 	       		{
-		    		if (is_prime(next_man->entrance) == 1)
+		    		if (is_prime(next_man->entrance))
 		    		{
 					man->next_p = next_man->next_p;
 					*average_nbr += time - next_man->entrance;
 					(*total_nbr)++;
-					atm->cnt_waiting--;
+					parsing->cnt_waiting--;
 					free(next_man);
 			 		next_man = man->next_p;
 			 		continue;
