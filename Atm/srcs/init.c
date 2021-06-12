@@ -18,7 +18,7 @@ void	init_machine(machine *atm_1, machine *atm_2, machine *atm_3)
 	atm_3->next_a = atm_1;
 }
 
-void    init_person(person *man, int t)
+void	init_person(person *man, int t)
 {
 	man->entrance = t;
 	man->time = rand() % 9 + 2;
