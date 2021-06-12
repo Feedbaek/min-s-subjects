@@ -7,7 +7,7 @@
 #define FALSE 0
 
 int parent[MAX_VERTICES];
-
+char word[12] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'};
 
 struct Edge {
    int start, end, weight;

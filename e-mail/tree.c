@@ -124,7 +124,7 @@ void rec_map(struct Edge *map, int start, int end, int find, double time, int le
 		j++;
 	}
 	if (deep != 1)
-		printf("===> 노드 %d까지 시간: %f\n", find, time);
+		printf("===> 사람 %c까지 시간: %f\n", word[find], time);
 }
 
 void print_map(struct Edge *map, int length)
@@ -134,9 +134,9 @@ void print_map(struct Edge *map, int length)
 	int deep;
 	double time;
 
-	while (i < length)
+	while (i <= length)
 	{
-		printf("노드 %d 출발 ====================\n", i);
+		printf("사람 %c 출발 ====================\n", word[i]);
 		j = 0;
 		while (j < length)
 		{
