@@ -52,6 +52,7 @@ int	main(void)
 		}
 		n = extended_Euclid(a, b);	// 재귀 호출해서 나온 값을 n에 담음
 		printf("x is %d, y is %d, and c is %d\n", n->first, n->second, n->third);
+		free(n);		// 사용끝난 구조체 해제
 		break ;
 	}
 	return (0);
