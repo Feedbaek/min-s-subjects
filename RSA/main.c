@@ -60,11 +60,11 @@ int	main(void)
 	int	oil;
 	struct _node	*node;
 
-	printf("임의의 소수 p와 q를 입력하시오.\n");
-	scanf("%d %d", &p, &q);
+	printf("임의의 소수 p와 q를 입력하시오.\n");	// 소수의 값이 클 수록 정확
+	scanf("%d %d", &p, &q);		// 해보니까 (p * q)값이 작으면 잘 안됨
 	N = p * q;
 	oil = (p-1) * (q-1);
-	for (int i=2; i<oil; i++)	// e 값 정하기
+	for (int i=2; i<N; i++)	// e 값 정하기
 	{
 		node = extended_Euclid(oil, i);
 		if (node->third == 1)
@@ -75,7 +75,7 @@ int	main(void)
 		}
 		free(node);
 	}
-	for (int i=1; i < oil; i++)	// d 값 구하기
+	for (int i=1; i <oil; i++)	// d 값 구하기
 	{
 		if ((e * i) % oil == 1)
 		{
