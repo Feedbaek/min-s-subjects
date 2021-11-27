@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #define MESSAGE_LENGTH 35
 
-char message[] = {'H','e','l','l','o',',',' ','P','l','e','a','s','e',' ','l','o','v','e',' ','W','o','o','n','g','s','u','p','!','!', '!','\0'};
+char message[] = "Hello, Please love Woongsup!!!";
 unsigned int encryption[MESSAGE_LENGTH];
 char decryption[MESSAGE_LENGTH];
 
