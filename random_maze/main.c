@@ -80,9 +80,9 @@ void dfs(int i, int j) {
 	while (1) {
 		if (check_complete(i, j))
 			break ;
-		int random = rand() % 4;
+		int direction = rand() % 4;
 		// if CELLS[i-1][j] is unvisited, then break the up-side wall.
-		if(random == 0 && i != 0) // unless the cell is located in the top,
+		if(direction == UP && i != 0) // unless the cell is located in the top,
 			if(CELLS[i-1][j] == 0) {
 				MAZE[i*2][j*4+1] = ' ';
 				MAZE[i*2][j*4+2] = ' ';
@@ -90,7 +90,7 @@ void dfs(int i, int j) {
 				dfs(i-1,j);
 			}
 		// if CELLS[i+1][j] is unvisited, then break the down-side wall.
-		if(random == 1 && i != CELL_HEIGHT-1) // unless the cell is located in the bottom,
+		if(direction == DOWN && i != CELL_HEIGHT-1) // unless the cell is located in the bottom,
 			if(CELLS[i+1][j] == 0) {
 				MAZE[i*2+2][j*4+1] = ' ';
 				MAZE[i*2+2][j*4+2] = ' ';
@@ -98,14 +98,14 @@ void dfs(int i, int j) {
 				dfs(i+1,j);
 			}
 		// if CELLS[i][j-1] is unvisited, then break the left-side wall.
-		if(random == 2 && j != 0)
+		if(direction == LEFT && j != 0)
 			if(CELLS[i][j-1] == 0) {
 				MAZE[i*2+1][j*4] = ' ';
 
 				dfs(i,j-1);
 			}
 		// if CELLS[i][j+1] is unvisited, then break the right-side wall.
-		if(random == 3 && j != CELL_WIDTH-1)
+		if(direction == RIGHT && j != CELL_WIDTH-1)
 			if(CELLS[i][j+1] == 0) {
 				MAZE[i*2+1][j*4+4] = ' ';
 				dfs(i,j+1);
@@ -134,8 +134,6 @@ int main(int argc, const char * argv[]) {
 
 	srand(time(NULL));
     initialize();
-    //show_maze();
-    //printf("\n\n");
     break_wall();
     //show the 1st randomly created maze
     printf("Draw the first maze \n\n");
