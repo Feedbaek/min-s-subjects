@@ -5,6 +5,29 @@
 //  Created by Woongsup Kim on 2021/11/10.
 //
 
+/*
+CELLS, MAZE, initialize(), break_wall(), show_maze()은 기존과 동일함.
+CELL_WIDTH와 CELL_HEIGHT을 10으로 매크로 정의함
+
+int check_complete(int i, int j) 추가
+void dfs(int i, int j) 수정
+main()에 srand(time(NULL)); 추가
+
+int check_complete(int i, int j)
+->  i행 j열 위치를 기준으로 상하좌우가 모두 탐색 완료되었는지 확인하는 함수.	탐색이 완료되지 않았다면 0을 반환하고, 탐색이 완료되었다면 1을 반환함.
+
+void dfs(int i, int j)
+->	1. i행 j열을 방문했다는 표시를 함
+	2. while문으로 상하좌우가 모두 탐색 될 때까지 반복함.
+	3. direction에 rand() % 4을 사용해 0~3의 숫자를 랜덤으로 대입함.
+	4. 0~3까지 LEFT, RIGHT, UP, DOWN 매크로 정의 되어 있으므로, direction 값과 비교해서 방향을 결정함.
+	5. 해당 방향이 이미 탐색되었다면 다시 반복문으로 랜덤 방향을 정하고, 탐색되지 않았다면 MAZE[] 배열을 수정해 현재 위치와 다음 위치 사이의 벽을 없애버림.
+	6. 재귀호출로 해당 방향의 위치에서 dfs를 호출함.
+
+int main(int argc, const char *argv[])
+->	srand(time(NULL));을 추가함. srand함수는 rand함수의 seed를 바꿔주어 매번 다른 난수를 발생시킬 수 있게함. 따라서 time함수를 사용해 시간을 seed로 주어 매번 다른 난수를 생성하게 함.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
